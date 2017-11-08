@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:63:"E:\wamp64\www\cms\public/../app/admin\view\auth_rule\index.html";i:1504912687;s:52:"E:\wamp64\www\cms\public/../app/admin\view\base.html";i:1509310922;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:63:"E:\wamp64\www\cms\public/../app/admin\view\auth_rule\index.html";i:1504912687;s:52:"E:\wamp64\www\cms\public/../app/admin\view\base.html";i:1509606784;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -317,12 +317,11 @@
     <!-- AjaxSubmit by CanWong -->
     <script src="/static/js/ajaxsubmit.js"></script>
     
-    <!-- Custom Theme Scripts -->
-    <script src="/static/js/custom.js"></script>
-    
 <script type="text/javascript">
   $(document).ready(function(){ ajaxdelete("<?php echo url('delete'); ?>")});
 </script>
 
+    <!-- Custom Theme Scripts -->
+    <script src="/static/js/custom.js"></script>
   </body>
 </html>
