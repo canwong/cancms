@@ -1,0 +1,44 @@
+{extend name='base'}
+{block name='xtitle'}
+<a class="btn btn-primary" href="{:url('create')}"><i class="fa fa-plus"></i> {$Think.lang.create}</a>
+{/block}
+{block name='body'}
+<table class="table table-striped jambo_table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>{$Think.lang.avatar}</th>
+      <th>{$Think.lang.username}</th>
+      <th>{$Think.lang.name}</th>
+      <th>{$Think.lang.email}</th>
+      <th>{$Think.lang.mobile}</th>
+      <th>{$Think.lang.logins}</th>
+      <th>{$Think.lang.status}</th>
+      <th>{$Think.lang.control}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {volist name='lists' id='vo' empty='no recode'}
+    <tr>
+    	<td>{$vo.id}</td>
+    	<td><img src="/uploads/avatar/{$vo->userInfo->avatar|default=null}" class="img-circle img-thumbnail" style="max-width: 100px" alt="{$vo.name}_avatar"></td>
+    	<td>{$vo.username}</td>
+    	<td>{$vo.name}</td>
+    	<td>{$vo.email}</td>
+    	<td>{$vo.mobile}</td>
+    	<td>{$vo.logins}</td>
+    	<td>{$vo.status?'<i class="fa fa-check-circle-o green"></i>':'<i class="fa fa-times-circle-o red"></i>'}</td>
+    	<td>
+    		<a href="{:url('edit',['id'=>$vo.id])}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> {$Think.lang.edit}</a>
+    		<a href="javascript:void(0)" title='{$vo.id}' data-dismiss="alert" class="btn btn-danger btn-xs delete"><i class="fa fa-close"></i> {$Think.lang.delete}</a>
+    	</td>
+    </tr>
+    {/volist}
+  </tbody>
+</table>
+{/block}
+{block name='js'}
+<script type="text/javascript">
+  $(document).ready(function(){ ajaxdelete("{:url('delete')}")});
+</script>
+{/block}

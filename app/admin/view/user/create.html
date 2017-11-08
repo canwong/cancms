@@ -1,0 +1,91 @@
+{extend name='base'}
+{block name='css'}
+<!-- Switchery -->
+<link href="/static/css/switchery.min.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="/static/css/green.css" rel="stylesheet">
+{/block}
+{block name='xtitle'}New User{/block}
+{block name='body'}
+<form class="ajax-form form-horizontal form-label-left" method="post" onsubmit="ajaxsubmit('#')">
+    <div class="item form-group has-feedback">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" id="username" name="username" required="required" data-validate-length-range="6" class="form-control col-md-7 col-xs-12 has-feedback-left" placeholder="{$Think.lang.username}*">
+            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+        </div>
+    </div>
+    <div class="item form-group has-feedback">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="password" id="password" name="password" required="required" data-validate-length-range="6" class="form-control col-md-7 col-xs-12 has-feedback-left" placeholder="{$Think.lang.password}*">
+            <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
+        </div>
+    </div>
+    <div class="item form-group has-feedback">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password_confirm">
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="password" id="password_confirm" name="password_confirm" required="required" data-validate-length-range="6" class="form-control col-md-7 col-xs-12 has-feedback-left" data-validate-linked="password" placeholder="{$Think.lang.password_confirm}*">
+            <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
+        </div>
+    </div>
+    <div class="item form-group has-feedback">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" id="name" name="name" class="form-control col-md-7 col-xs-12 has-feedback-left" placeholder="{$Think.lang.name}">
+            <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+        </div>
+    </div>
+    <div class="item form-group has-feedback">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email"></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="email" id="email" name="email" class="form-control col-md-7 col-xs-12 has-feedback-left" placeholder="{$Think.lang.email}">
+            <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+        </div>
+    </div>
+    <div class="item form-group has-feedback">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="level"></label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="tel" id="mobile" name="mobile" data-validate-length-range='7,20' class="form-control col-md-7 col-xs-12 has-feedback-left" placeholder="{$Think.lang.mobile}">
+            <span class="fa fa-mobile form-control-feedback left" aria-hidden="true"></span>
+        </div>
+    </div>
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ismenu">{$Think.lang.sex}:
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <label for="male">
+                <input class="flat" type="radio" id="male" name="sex" value="1" checked>  {$Think.lang.male}  
+            </label>
+            <label for="female">
+                <input class="flat" type="radio" id="female" name="sex" value="1">  {$Think.lang.female}
+            </label>
+        </div>
+    </div>
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">{$Think.lang.status}<span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="checkbox" name="status" value="1" class="js-switch" checked/>
+        </div>
+    </div>
+    <div class="ln_solid"></div>
+    <div class="item form-group">
+        <div class="col-md-6 col-md-offset-3">
+            <button type="reset" class="btn btn-primary">{$Think.lang.reset}</button>
+            <button id="submit" type="submit" class="btn btn-success">{$Think.lang.submit}</button>
+        </div>
+    </div>
+</form>
+{/block}
+{block name='js'}
+<!-- Switchery -->
+<script src="/static/js/switchery.min.js"></script>
+<!-- validator -->
+<script src="/static/js/validator.js"></script>
+<!-- iCheck -->
+<script src="/static/js/icheck.min.js"></script>
+{/block}

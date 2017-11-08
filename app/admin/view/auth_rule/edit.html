@@ -1,0 +1,97 @@
+{extend name='base'}
+{block name='css'}
+<!-- Switchery -->
+<link href="/static/css/switchery.min.css" rel="stylesheet">
+{/block}
+{block name='xtitle'}{$page_title}{/block}
+{block name='body'}
+<form class="ajax-form form-horizontal form-label-left" method="post" onsubmit="ajaxsubmit('#')">
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pid">{$Think.lang.pid} <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <select id="pid" name="pid" class="form-control" required>
+                <option value="0" {eq name='$info.pid|default=0' value='0'}selected{/eq}>{$Think.lang.top_pid}</option>
+                {volist name='trees' id='vo'}
+                <option value="{$vo.id}" {eq name='$vo.id' value='$info.pid|default=0'}selected{/eq}>
+                {switch name='$vo.level'}
+                {case value='2'}|----{/case}
+                {case value='3'}|    |--{/case}
+                {default /}
+                {/switch}
+                {$vo.title}
+                </option>
+                {/volist}
+            </select>
+        </div>
+    </div>
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">{$Think.lang.auth_title}<span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" id="title" name="title" required="required" class="form-control col-md-7 col-xs-12" value="{$info.title|default=''}">
+        </div>
+    </div>
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">{$Think.lang.auth_name} <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" id="name" name="name" required="required" placeholder="eg. model/controller" class="form-control col-md-7 col-xs-12" value="{$info.name|default=''}">
+        </div>
+    </div>
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="level">{$Think.lang.auth_level} <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <select id="level" name="level" class="form-control" required>
+                <option value="1">{$Think.lang.project}</option>
+                <option value="2">{$Think.lang.model}</option>
+                <option value="3">{$Think.lang.control}</option>
+            </select>
+        </div>
+    </div>
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">{$Think.lang.status} <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="checkbox" name="status" value="1" class="js-switch" {eq name='$info.status|default=1' value='1'}checked{/eq} />
+        </div>
+    </div>
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ismenu">{$Think.lang.ismenu} <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+           <input type="checkbox" name="ismenu" value="1" class="js-switch" {eq name='$info.ismenu|default=1' value='1'}checked{/eq} />
+        </div>
+    </div>
+    <div class="item form-group">
+        <label for="icon" class="control-label col-md-3">{$Think.lang.auth_icon}</label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input id="icon" type="text" name="icon" class="form-control col-md-7 col-xs-12" value="{$info.icon|default=''}">
+        </div>
+    </div>
+    <div class="item form-group">
+        <label for="sorts" class="control-label col-md-3 col-sm-3 col-xs-12">{$Think.lang.sorts}</label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input id="sorts" type="text" name="sorts" class="form-control col-md-7 col-xs-12" required="required" value="{$info.sorts|default='50'}">
+        </div>
+    </div>
+    <div class="ln_solid"></div>
+    <div class="item form-group">
+        <div class="col-md-6 col-md-offset-3">
+            {notempty name='$info.id'}<input type="hidden" name="id" value="{$info.id}">{/notempty}
+            <button type="reset" class="btn btn-primary">{$Think.lang.reset}</button>
+            <button id="send" type="submit" class="btn btn-success">{$Think.lang.submit}</button>
+        </div>
+    </div>
+</form>
+{/block}
+{block name='js'}
+<!-- Switchery -->
+<script src="/static/js/switchery.min.js"></script>
+<!-- validator -->
+<script src="/static/js/validator.js"></script>
+<script type="text/javascript">
+    $('#level').val("{$info.level|default='1'}");
+</script>
+{/block}

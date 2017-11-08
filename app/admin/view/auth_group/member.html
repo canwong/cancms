@@ -1,0 +1,39 @@
+{extend name='base'}
+{block name='css'}
+<!-- Switchery -->
+<link href="/static/css/switchery.min.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="/static/css/green.css" rel="stylesheet"> 
+{/block}
+{block name='xtitle'}{$page_title}{/block}
+{block name='body'}
+<form class="ajax-form form-horizontal form-label-left" method="post" onsubmit="ajaxsubmit('#')">
+    {volist name='userlist' id='ul'}
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <label>
+              <input type="checkbox" name="uid[]" value="{$ul.id}" class="flat" {in name='$ul.id' value='$member'}checked{/in} /> {$ul.username}
+            </label>
+        </div>
+    </div>
+    {/volist}
+    <div class="ln_solid"></div>
+    <div class="item form-group">
+        <div class="col-md-6 col-md-offset-3">
+            <input type="hidden" name="group_id" value="{$id}">
+            <button type="reset" class="btn btn-primary">{$Think.lang.reset}</button>
+            <button id="send" type="submit" class="btn btn-success">{$Think.lang.submit}</button>
+        </div>
+    </div>
+</form>
+{/block}
+{block name='js'}
+<!-- Switchery -->
+<script src="/static/js/switchery.min.js"></script>
+<!-- validator -->
+<script src="/static/js/validator.js"></script>
+<!-- iCheck -->
+<script src="/static/js/icheck.min.js"></script>
+{/block}

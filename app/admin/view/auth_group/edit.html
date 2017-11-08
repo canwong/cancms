@@ -1,0 +1,62 @@
+{extend name='base'}
+{block name='css'}
+<!-- Switchery -->
+<link href="/static/css/switchery.min.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="/static/css/green.css" rel="stylesheet"> 
+{/block}
+{block name='xtitle'}{$page_title}{/block}
+{block name='body'}
+<form class="ajax-form form-horizontal form-label-left" method="post" onsubmit="ajaxsubmit('#')">
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">{$Think.lang.group_title}<span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" id="title" name="title" required="required" class="form-control col-md-7 col-xs-12" value="{$info.title|default=''}">
+        </div>
+    </div>
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">{$Think.lang.status} <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="checkbox" name="status" value="1" class="js-switch" {eq name='$info.status|default=1' value='1'}checked{/eq} />
+        </div>
+    </div>
+    <div class="item form-group">
+        <label for="sorts" class="control-label col-md-3 col-sm-3 col-xs-12">{$Think.lang.authority}</label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <ul class="nav side_menu">
+                {volist name='trees' id='vo'}
+                <li>
+                    {switch name='$vo.level'}
+                        {case value='2'}|----{/case}
+                        {case value='3'}|    |----{/case}
+                        {default}
+                    {/switch}
+                    <label>
+                    <input type="checkbox" class="flat" name="rule[]" value="{$vo.id}"
+                    {in name='$vo.id' value="$info.rules|default=null"}checked{/in}> {$vo.title}
+                    </label>
+                </li>
+                {/volist}
+            </ul>
+        </div>
+    </div>
+    <div class="ln_solid"></div>
+    <div class="item form-group">
+        <div class="col-md-6 col-md-offset-3">
+            {notempty name='$info.id'}<input type="hidden" name="id" value="{$info.id}">{/notempty}
+            <button type="reset" class="btn btn-primary">{$Think.lang.reset}</button>
+            <button id="send" type="submit" class="btn btn-success">{$Think.lang.submit}</button>
+        </div>
+    </div>
+</form>
+{/block}
+{block name='js'}
+<!-- Switchery -->
+<script src="/static/js/switchery.min.js"></script>
+<!-- validator -->
+<script src="/static/js/validator.js"></script>
+<!-- iCheck -->
+<script src="/static/js/icheck.min.js"></script>
+{/block}

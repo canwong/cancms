@@ -1,0 +1,103 @@
+{extend name='base'}
+{block name='css'}
+<!-- Switchery -->
+<link href="/static/css/switchery.min.css" rel="stylesheet">
+{/block}
+{block name='xtitle'}{$page_title}{/block}
+{block name='body'}
+<form class="ajax-form form-horizontal form-label-left" method="post" onsubmit="ajaxsubmit('#')">
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pid">{$Think.lang.pid} <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <select id="pid" name="pid" class="form-control" required>
+                <option value="0" {eq name='$info.pid|default=0' value='0'}selected{/eq}>{$Think.lang.top_pid}</option>
+                {volist name='category' id='cat'}
+                <option value="{$cat.id}">{$cat.title}</option>
+                {/volist}
+            </select>
+        </div>
+    </div>
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">{$Think.lang.cat_title}<span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" id="title" name="title" required="required" class="form-control col-md-7 col-xs-12" value="{$info.title|default=''}">
+        </div>
+    </div>
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="thumbnail">{$Think.lang.thumbnail}
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+            <input type="text" id="thumbnail" name="thumbnail" class="form-control col-md-7 col-xs-12 has-feedback-right" value="{$info.thumbnail|default=''}">
+            <input type="file" id="uploadpic" class="hidden">
+            <span class="fa fa-upload form-control-feedback right" aria-hidden="true"></span>
+        </div>
+    </div>
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="level">{$Think.lang.keywords}
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+           <input type="text" id="keywords" name="keywords" class="form-control col-md-7 col-xs-12" value="{$info.keywords|default=null}">
+        </div>
+    </div>
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="level">{$Think.lang.description}
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+           <textarea class="form-control" name="description" id="description" rows="3">{$info.description|default=null}</textarea>
+        </div>
+    </div>
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">{$Think.lang.status}
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="checkbox" name="status" value="1" class="js-switch" {eq name='$info.status|default=1' value='1'}checked{/eq} />
+        </div>
+    </div>
+    <div class="item form-group">
+        <label for="sorts" class="control-label col-md-3 col-sm-3 col-xs-12">{$Think.lang.sorts}</label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input id="sorts" type="text" name="sorts" class="form-control col-md-7 col-xs-12" required="required" value="{$info.sorts|default='50'}">
+        </div>
+    </div>
+    <div class="ln_solid"></div>
+    <div class="item form-group">
+        <div class="col-md-6 col-md-offset-3">
+            {notempty name='$info.id'}<input type="hidden" name="id" value="{$info.id}">{/notempty}
+            <button type="reset" class="btn btn-primary">{$Think.lang.reset}</button>
+            <button id="send" type="submit" class="btn btn-success">{$Think.lang.submit}</button>
+        </div>
+    </div>
+</form>
+{/block}
+{block name='js'}
+<!-- Switchery -->
+<script src="/static/js/switchery.min.js"></script>
+<!-- validator -->
+<script src="/static/js/validator.js"></script>
+<script type="text/javascript">
+    $('#pid').val('{$info.pid|default=0}');
+    $('#thumbnail').on('click',function(){
+        $('#uploadpic').click();
+    });
+     /*插入图片*/
+    $('#uploadpic').on('change',function(){
+        var formdata = new FormData();
+        formdata.append('thumbnail',$('#uploadpic')[0].files[0]);
+        $.ajax({
+            url:"{:url('upload/thumbnail')}",
+            type:'post',
+            data:formdata,
+            processData : false,
+            contentType : false,
+            success:function(data){
+                $('#thumbnail').val(data);
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                console.log(JSON.parse(XMLHttpRequest.responseText).msg);
+            }
+        })
+    })
+</script>
+{/block}
