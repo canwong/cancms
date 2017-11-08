@@ -20,7 +20,7 @@ class Article extends Base
 
 	public function index()
 	{
-		$lists = $this->mod->field('id,type_id,title,thumbnail,status')->order('id DESC')->paginate(20);
+		$lists = $this->mod->field('id,cat_id,title,thumbnail,status')->order('id DESC')->paginate(20);
 		$this->assign('lists',$lists);
 		$this->assign('page',$lists->render());
 		return $this->fetch();
